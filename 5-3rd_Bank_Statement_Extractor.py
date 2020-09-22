@@ -20,7 +20,7 @@ def find_withdraws(input_string):
     if result:
         raw_entries = [item[1] for item in result]
         # print(raw_entries)
-        entry_query = r"(\d{2}/\d{2})([0-9,,]+.\d{2})(.*?)(?=\d{2}/\d{2}|$)"
+        entry_query = r"(\d{2}/\d{2})(\d*.\d{2})(.*?)(?=\d{2}/\d{2}|$)"
         entries = [["Withdrawals", re.findall(entry_query, item[1])] for item in result]
         if entries:
             return entries
@@ -32,7 +32,7 @@ def find_deposits(input_string):
     if result:
         raw_entries = [item[1] for item in result]
         # print(raw_entries)
-        entry_query = r"(\d{2}/\d{2})([0-9,,]+.\d{2})(.*?)(?=\d{2}/\d{2}|$)"
+        entry_query = r"(\d{2}/\d{2})(\d*.\d{2})(.*?)(?=\d{2}/\d{2}|$)"
         entries = [["Deposits", re.findall(entry_query, item[1])] for item in result]
         if entries:
             return entries
@@ -45,8 +45,8 @@ def parse_pdf(file_name):
     for i in range(pdfReader.numPages):
         pageObj = pdfReader.getPage(i)
         text += pageObj.extractText()
-    return text
     pdfFileObj.close()
+    return text
 
 def collect_data(file_name):
     text = parse_pdf(file_name)
